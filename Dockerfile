@@ -9,6 +9,7 @@ RUN php -r "unlink('composer-setup.php');"
 RUN pecl install mongodb
 COPY ./conf/php.ini /opt/docker/etc/php/php.ini
 RUN composer require mongodb/mongodb
+RUN composer update
 
 #COPY conf/momusSite.crt /opt/docker/etc/httpd/ssl/server.crt
 #COPY conf/momusSite.key /opt/docker/etc/httpd/ssl/server.key
