@@ -1,3 +1,9 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+app_sender_send:
+  path: /sender/send
+  controller: App\Controller\SenderController::send
+#  methods: [GET, POST]
+
+app_sender_recieve:
+  path: /sender/recieve
+  controller: App\Controller\SenderController::recieve
+  methods: [POST]
