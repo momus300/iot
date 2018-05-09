@@ -21,11 +21,9 @@ class SenderController
     public function send()
     {
         $ch = curl_init();
-//        curl_setopt($ch, CURLOPT_URL, 'https://api.ryanair.com/aggregate/3/common?embedded=airports,countries,cities,regions,nearbyAirports,defaultAirport&market=en-gb');
-        curl_setopt($ch, CURLOPT_URL, 'http://momus.ovh/iot/sender/recieve?id=44');
+        curl_setopt($ch, CURLOPT_URL, 'http://XXX/iot/sender/recieve?id=44');
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-type: application/json')); // Assuming you're requesting JSON
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-//        curl_setopt($ch, CURLOPT_, 1);
 
         $response = curl_exec($ch);
 
@@ -37,7 +35,7 @@ class SenderController
     {
         $start = microtime(true);
 
-        $connection = new AMQPStreamConnection('momus.ovh', 5672, 'guest', 'guest');
+        $connection = new AMQPStreamConnection('XXX', 5672, 'guest', 'guest');
         $channel = $connection->channel();
         $channel->queue_declare('iot', false, false, false, false);
 
