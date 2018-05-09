@@ -40,13 +40,15 @@ class SenderController
             'method' => __METHOD__,
             'created' => (new \DateTime())->format('Y-m-d H:i:s')
         ] + $data;
+
         $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
         $channel = $connection->channel();
         $channel->queue_declare('iot', false, false, false, false);
         $msg = new AMQPMessage(json_encode($data));
-        $channel->basic_publish($msg, '', 'hello');
+        $channel->basic_publish($msg, '', 'iot');
         $channel->close();
         $connection->close();
-        return new JsonResponse(['message' => 'ok', 'id' => $data['klucz']], 201);
+
+        return new JsonResponse($data, 201);
     }
 }
