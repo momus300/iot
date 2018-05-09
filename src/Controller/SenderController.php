@@ -33,6 +33,31 @@ class SenderController
         return new Response($data['tekst']);
     }
 
+    public function sendAmqp()
+    {
+        $start = microtime(true);
+
+        $connection = new AMQPStreamConnection('momus.ovh', 5672, 'guest', 'guest');
+        $channel = $connection->channel();
+        $channel->queue_declare('iot', false, false, false, false);
+
+        $i = 0;
+        $requests = 11000;
+        while($i < $requests){
+            $data = 'mojaSuperwartosc ' . rand(1000, 9999);
+            $msg = new AMQPMessage(json_encode($data));
+            $channel->basic_publish($msg, '', 'iot');
+
+            $i++;
+        }
+
+        $channel->close();
+        $connection->close();
+        $stop = microtime(true) - $start;
+
+        return new Response("wyslalem {$requests} requestow w czasie: {$stop}");
+    }
+
     public function recieve(Request $request)
     {
         $data = $request->request->all();
@@ -51,4 +76,5 @@ class SenderController
 
         return new JsonResponse($data, 201);
     }
+
 }
