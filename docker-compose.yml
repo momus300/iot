@@ -8,10 +8,10 @@ services:
 #      - 127.0.0.1:15672:15672
     volumes:
       - .:/app
-#      - ./conf/php.ini:/opt/docker/etc/php/php.ini
+      - ./conf/php.ini:/opt/docker/etc/php/php.ini
+#      - ./conf/vhost.conf:/opt/docker/etc/httpd/vhost.conf
     working_dir: /app/
     environment:
-      - APP_ENV=local
       - VIRTUAL_HOST=http://iot.local
       - LOG_STDERR=/marekerror.log
     links:
