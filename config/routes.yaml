@@ -3,11 +3,15 @@ app_sender_send:
   controller: App\Controller\SenderController::send
 #  methods: [GET, POST]
 
-app_sender_recieve:
-  path: /sender/recieve
-  controller: App\Controller\SenderController::recieve
-  methods: [POST]
+#app_sender_recieve:
+#  path: /sender/recieve
+#  controller: App\Controller\SenderController::recieve
+#  methods: [POST]
 
 app_sender_send_amqp:
   path: /sender/sendAmqp
   controller: App\Controller\SenderController::sendAmqp
+
+app_test:
+  path: /test
+  controller: App\Controller\SenderController::recieve

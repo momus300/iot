@@ -11,11 +11,12 @@ namespace App\Controller;
 use Date;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class SenderController
+class SenderController extends Controller
 {
 
     public function send()
@@ -56,9 +57,15 @@ class SenderController
         return new Response("wyslalem {$requests} requestow w czasie: {$stop}");
     }
 
+    public function test(Request $request)
+    {
+        return $this->forward('App\Controller\SenderController::recieve', [], $request->query->all());
+    }
+
     public function recieve(Request $request)
     {
-        $data = $request->request->all();
+        $data = $request->query->all();
+
         $data = [
             'method' => __METHOD__,
             'created' => (new \DateTime())->format('Y-m-d H:i:s')
