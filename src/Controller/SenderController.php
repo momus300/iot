@@ -62,13 +62,14 @@ class SenderController extends Controller
         return $this->forward('App\Controller\SenderController::recieve', [], $request->query->all());
     }
 
-    public function recieve(Request $request)
+    public function recieve(Request $request, $mac)
     {
         $data = $request->query->all();
 
         $data = [
             'method' => __METHOD__,
-            'created' => (new \DateTime())->format('Y-m-d H:i:s')
+            'created' => (new \DateTime())->format('Y-m-d H:i:s'),
+            'mac' => $mac
         ] + $data;
 
         $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');

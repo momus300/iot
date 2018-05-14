@@ -13,5 +13,5 @@ app_sender_send_amqp:
   controller: App\Controller\SenderController::sendAmqp
 
 app_test:
-  path: /test
+  path: /test/{mac}
   controller: App\Controller\SenderController::recieve
