@@ -72,13 +72,13 @@ class SenderController extends Controller
             'mac' => $mac
         ] + $data;
 
-        $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
-        $channel = $connection->channel();
-        $channel->queue_declare('iot', false, false, false, false);
-        $msg = new AMQPMessage(json_encode($data));
-        $channel->basic_publish($msg, '', 'iot');
-        $channel->close();
-        $connection->close();
+//        $connection = new AMQPStreamConnection('rabbitmq', 5672, 'guest', 'guest');
+//        $channel = $connection->channel();
+//        $channel->queue_declare('iot', false, false, false, false);
+//        $msg = new AMQPMessage(json_encode($data));
+//        $channel->basic_publish($msg, '', 'iot');
+//        $channel->close();
+//        $connection->close();
 
         return new JsonResponse($data, 201);
     }
